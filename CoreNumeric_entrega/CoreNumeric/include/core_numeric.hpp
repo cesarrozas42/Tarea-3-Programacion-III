@@ -9,9 +9,6 @@
 
 namespace core_numeric {
 
-// ============================================================
-// Concepts obligatorios
-// ============================================================
 
 template <typename C>
 concept Iterable = requires(C c) {
@@ -29,14 +26,11 @@ concept Divisible = requires(T a, std::size_t n) {
     { a / n } -> std::same_as<T>;
 };
 
-// Concept propio: permite determinar si dos objetos pueden ordenarse.
-// Se utiliza en max().
 template <typename T>
 concept Comparable = requires(T a, T b) {
     { a < b } -> std::convertible_to<bool>;
 };
 
-// Restricciones auxiliares para variance.
 template <typename T>
 concept VarianceElement = requires(T a, T b) {
     { a - b };
@@ -118,7 +112,6 @@ auto max(const C& container) {
     return result;
 }
 
-// La función recibida se maneja como parámetro template mediante el tipo F.
 template <Iterable C, typename F>
 requires std::invocable<F, typename C::value_type>
 auto transform_reduce(const C& container, F function) {
@@ -133,9 +126,6 @@ auto transform_reduce(const C& container, F function) {
     return result;
 }
 
-// ============================================================
-// Variadic templates + fold expressions
-// ============================================================
 
 template <typename... Args>
 requires (sizeof...(Args) > 0) &&
@@ -184,20 +174,18 @@ auto max_variadic(T first, Rest... rest) {
     return result;
 }
 
-// ============================================================
-// Uso obligatorio de if constexpr
-// ============================================================
+
 
 template <typename T>
 requires std::is_arithmetic_v<T>
 constexpr T normalize(T value) {
     if constexpr (std::is_integral_v<T>) {
-        // Para enteros se conserva el valor como entero.
+
         return value;
     } else {
-        // Para flotantes se convierte explícitamente a la forma flotante.
+
         return static_cast<T>(value);
     }
 }
 
-} // namespace core_numeric
+} 
