@@ -11,7 +11,7 @@ public:
     }
 };
 
-int main() {
+int test() {
 
      //(Descomentar uno a uno para verificar los errores)
 
