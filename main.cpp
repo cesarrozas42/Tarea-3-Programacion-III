@@ -11,37 +11,37 @@ using namespace std;
 
 namespace core_numeric {
 
-    // 1. CONCEPTS OBLIGATORIOS Y PERSONALIZADOS
+    // 1. CONCEPTS
 
-    // Concept: Iterable
+    // Concept Iterable
     template <typename C>
     concept Iterable = requires(C c) {
         begin(c);
         end(c);
     };
 
-    // Concept: Addable
+    // Concept Addable
     template <typename T>
     concept Addable = requires(T a, T b) {
         { a + b } -> same_as<T>;
     };
 
-    // Concept: Divisible
+    // Concept Divisible
     template <typename T>
     concept Divisible = requires(T a, size_t n) {
         { a / n } -> same_as<T>;
     };
 
-    // CONCEPT PERSONALIZADO: Comparable
+    // Concept Comparable
     template <typename T>
     concept Comparable = requires(T a, T b) {
         { a > b } -> convertible_to<bool>;
         { a < b } -> convertible_to<bool>;
     };
 
-    // ALGORITMOS SOBRE CONTENEDORES
+    // ALGORITMOS CONTENEDORES
 
-    // Función sum (Reutilizada por mean)
+    // Función sum
     template <Iterable C>
         requires Addable<typename C::value_type>
     auto sum(const C& container) {
@@ -180,12 +180,12 @@ int main() {
 
     // Pruebas Contenedores
     vector<double> v{1.0, 2.0, 3.0};
-    cout << "Mean: " << core_numeric::mean(v) << endl;                     // 2.0
-    cout << "Variance: " << core_numeric::variance(v) << endl;             // 0.666667
-    cout << "Max: " << core_numeric::max(v) << endl;                       // 3.0
+    cout << "Mean: " << core_numeric::mean(v) << endl;                 // 2.0
+    cout << "Variance: " << core_numeric::variance(v) << endl;        // 0.666667
+    cout << "Max: " << core_numeric::max(v) << endl;                    // 3.0
 
     auto r = core_numeric::transform_reduce(v, [](double x) { return x * x; });
-    cout << "Transform Reduce (x^2): " << r << endl;                       // 14.0
+    cout << "Transform Reduce (x^2): " << r << endl;               // 14.0
 
     // Pruebas Variádicas
     cout << "Sum Variadic: " << core_numeric::sum_variadic(1, 2, 3, 4) << endl;
