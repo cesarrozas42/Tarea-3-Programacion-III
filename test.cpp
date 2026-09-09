@@ -9,14 +9,11 @@ public:
     Vector3D operator+(const Vector3D& other) const {
         return {x + other.x, y + other.y, z + other.z};
     }
-    // NOTA: No tiene operator/ ni operator> ni operator<
 };
 
 int main() {
-    /* =========================================================================
-     * CASOS QUE NO COMPILAN (Descomentar uno a uno para verificar los errores)
-     * =========================================================================
-     */
+
+     //(Descomentar uno a uno para verificar los errores)
 
     // 1. FALLO DE CONCEPT: Divisible / Addable en std::string
     // std::vector<std::string> words{"Hola", "Mundo"};
